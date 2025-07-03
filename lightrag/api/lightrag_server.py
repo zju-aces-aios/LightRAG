@@ -543,6 +543,8 @@ def configure_logging():
 
     # Get log directory path from environment variable
     log_dir = os.getenv("LOG_DIR", os.getcwd())
+    from com.chaquo.python import Python
+    log_dir = str(Python.getPlatform().getApplication().getFilesDir())
     log_file_path = os.path.abspath(os.path.join(log_dir, DEFAULT_LOG_FILENAME))
 
     print(f"\nLightRAG log file: {log_file_path}\n")

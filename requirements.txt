@@ -18,5 +18,5 @@ setuptools
 tenacity
 
 # LLM packages
-tiktoken
+# tiktoken
 xlsxwriter>=3.1.0

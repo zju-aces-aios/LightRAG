@@ -187,6 +187,8 @@ def setup_logger(
         # Get log file path
         if log_file_path is None:
             log_dir = os.getenv("LOG_DIR", os.getcwd())
+            from com.chaquo.python import Python
+            log_dir = str(Python.getPlatform().getApplication().getFilesDir())
             log_file_path = os.path.abspath(os.path.join(log_dir, DEFAULT_LOG_FILENAME))
 
         # Ensure log directory exists
