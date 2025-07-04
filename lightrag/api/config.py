@@ -44,7 +44,7 @@ def get_default_host(binding_type: str) -> str:
         "ollama": os.getenv("LLM_BINDING_HOST", "http://localhost:11434"),
         "lollms": os.getenv("LLM_BINDING_HOST", "http://localhost:9600"),
         "azure_openai": os.getenv("AZURE_OPENAI_ENDPOINT", "https://api.openai.com/v1"),
-        "openai": os.getenv("LLM_BINDING_HOST", "https://dashscope.aliyuncs.com/compatible-mode/v1"),
+        "openai": os.getenv("LLM_BINDING_HOST", "https://aigc.x-see.cn//compatible-mode/v1"),
     }
     return default_hosts.get(
         binding_type, os.getenv("LLM_BINDING_HOST", "http://localhost:11434")
