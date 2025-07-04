@@ -729,6 +729,65 @@ class TiktokenTokenizer(Tokenizer):
             raise ValueError(f"Invalid model_name: {model_name}.")
 
 
+class SimpleTokenizer(Tokenizer):
+    """
+    A simple, dependency-free tokenizer that works on UTF-8 bytes.
+
+    This class serves as a fallback replacement for TiktokenTokenizer when the `tiktoken`
+    library is not available. It satisfies the Tokenizer interface required by lightrag,
+    allowing the system to run without installation issues.
+
+    How it works:
+    - `encode`: Converts a string into its UTF-8 byte representation and returns a list of integers (bytes).
+    - `decode`: Converts a list of bytes back into a UTF-8 string.
+    - `count_tokens`: The base class uses `len(self.encode(text))` to count, so this method works out-of-the-box.
+
+    Note: The token count will not match tiktoken's and will generally be higher.
+    However, it provides a consistent and functional way to measure text length.
+    """
+    def __init__(self, model_name: str = "simple_byte_tokenizer"):
+        """
+        Initializes the SimpleTokenizer.
+
+        Args:
+            model_name: A descriptive name for this tokenizer.
+        """
+        # The base Tokenizer class expects a 'tokenizer' object that has .encode() and .decode() methods.
+        # Our class itself implements these methods, so we can pass `self` as the tokenizer object.
+        super().__init__(model_name=model_name, tokenizer=self)
+
+    def encode(self, text: str) -> List[int]:
+        """
+        Encodes a string into a list of integers representing its UTF-8 bytes.
+
+        Args:
+            text: The string to encode.
+
+        Returns:
+            A list of integers (0-255).
+        """
+        if not isinstance(text, str):
+            # Return empty list for non-string inputs to avoid errors
+            return []
+        return list(text.encode('utf-8'))
+
+    def decode(self, tokens: List[int]) -> str:
+        """
+        Decodes a list of integers (bytes) back into a string.
+
+        Args:
+            tokens: A list of integers (bytes) to decode.
+
+        Returns:
+            The decoded string. It uses 'replace' for error handling to prevent crashes
+            on invalid byte sequences.
+        """
+        if not tokens:
+            return ""
+        # Convert the list of ints to a bytes object, then decode.
+        return bytes(tokens).decode('utf-8', errors='replace')
+
+
 def pack_user_ass_to_openai_messages(*args: str):
     roles = ["user", "assistant"]
     return [
