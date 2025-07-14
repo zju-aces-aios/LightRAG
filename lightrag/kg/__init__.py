@@ -28,6 +28,7 @@ STORAGE_IMPLEMENTATIONS = {
             "ChromaVectorDBStorage",
             "PGVectorStorage",
             "FaissVectorDBStorage",
+            "LightFaissVectorDBStorage",
             "QdrantVectorDBStorage",
             "MongoVectorDBStorage",
             # "TiDBVectorDBStorage",
@@ -76,6 +77,7 @@ STORAGE_ENV_REQUIREMENTS: dict[str, list[str]] = {
     # "TiDBVectorDBStorage": ["TIDB_USER", "TIDB_PASSWORD", "TIDB_DATABASE"],
     "PGVectorStorage": ["POSTGRES_USER", "POSTGRES_PASSWORD", "POSTGRES_DATABASE"],
     "FaissVectorDBStorage": [],
+    "LightFaissVectorDBStorage": [],
     "QdrantVectorDBStorage": ["QDRANT_URL"],  # QDRANT_API_KEY has default value None
     "MongoVectorDBStorage": [],
     # Document Status Storage Implementations
@@ -110,6 +112,7 @@ STORAGES = {
     # "GremlinStorage": ".kg.gremlin_impl",
     "PGDocStatusStorage": ".kg.postgres_impl",
     "FaissVectorDBStorage": ".kg.faiss_impl",
+    "LightFaissVectorDBStorage": ".kg.lightfaiss_impl",
     "QdrantVectorDBStorage": ".kg.qdrant_impl",
 }
 
