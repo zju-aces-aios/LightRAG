@@ -127,7 +127,7 @@ class LightFaissVectorDBStorage(BaseVectorStorage):
         # 数据转换为float32类型，并进行L2 norm方便后续进行cosine相似度计算
         embeddings = embeddings.astype(np.float32)
         # TODO: embeddings的形状到底是什么样子的？运行时确认一下
-        lf.normalized_L2_cpu(embeddings, embeddings.shape[0], embeddings.shape[1])
+        lf.normalized_L2_cpu(embeddings, embeddings.shape[1], embeddings.shape[0])
 
         # 插入逻辑
         # 1. 检查哪些向量已经存在
@@ -165,7 +165,7 @@ class LightFaissVectorDBStorage(BaseVectorStorage):
         )
         embedding = np.array(embedding, dtype=np.float32)
         # TODO: embedding的形状到底是什么样子的？运行时确认一下
-        lf.normalized_L2_cpu(embedding, embedding.shape[0], embedding.shape[1])
+        lf.normalized_L2_cpu(embedding, embedding.shape[1], embedding.shape[0])
 
         logger.info(
             f"Query: {query}, top_k: {top_k}, threshold: {self.cosine_better_than_threshold}"
