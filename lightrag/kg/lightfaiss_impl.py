@@ -17,7 +17,7 @@ from .shared_storage import (
     set_all_update_flags,
 )
 
-import lightrag.kg.edgevecdb.edgevecdb_core as lf
+import edgevecdb.edgevecdb_core as lf
 
 @final
 @dataclass
